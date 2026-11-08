@@ -1,20 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import {
   ExternalLink,
   Github,
-  Cloud,
-  Terminal,
-  Database,
-  Cpu,
   Sparkles,
   ArrowRight,
-  CheckCircle,
 } from "./Icons";
 
 interface ProjectItem {
   id: string;
   title: string;
+  tagline?: string;
   subtitle: string;
   description: string;
   tags: string[];
@@ -25,13 +22,14 @@ interface ProjectItem {
   gradient: string;
   accentBorder: string;
   metric: string;
-  visualType: "cloudwatch" | "vpc" | "ai" | "civic";
+  bannerImage: string;
 }
 
 const projects: ProjectItem[] = [
   {
     id: "aws-monitoring",
-    title: "AWS Monitoring & Alerting System",
+    title: "Firefly — AWS Monitoring & Alerting System",
+    tagline: "Always watching. Always illuminating.",
     subtitle: "Terraform • CloudWatch • SNS • EC2 • VPC",
     description:
       "Engineered automated AWS cloud infrastructure using declarative Terraform. Implemented comprehensive CloudWatch metric alarms for CPU, memory, and disk thresholds with real-time automated incident dispatch via Amazon SNS.",
@@ -42,11 +40,12 @@ const projects: ProjectItem[] = [
     gradient: "from-[#803CFF]/25 via-[#6366F1]/15 to-transparent",
     accentBorder: "hover:border-[#803CFF]/60",
     metric: "<60s Incident Alert Latency",
-    visualType: "cloudwatch",
+    bannerImage: "/projects/firefly-banner.jpg",
   },
   {
     id: "scalable-blog",
-    title: "Scalable Blog Application on AWS",
+    title: "Paperboat — Scalable Blog Application on AWS",
+    tagline: "Every story deserves a journey.",
     subtitle: "EC2 • Custom VPC • RDS MySQL • S3 • EBS",
     description:
       "Architected high-availability multi-tier cloud infrastructure on AWS. Features public and private subnet isolation, persistent Amazon S3 object storage for assets, Amazon RDS MySQL with automated multi-AZ snapshots, and secure security groups.",
@@ -57,7 +56,7 @@ const projects: ProjectItem[] = [
     gradient: "from-sky-500/25 via-[#38BDF8]/15 to-transparent",
     accentBorder: "hover:border-sky-500/60",
     metric: "99.9% Cloud Availability",
-    visualType: "vpc",
+    bannerImage: "/projects/paperboat-banner.jpg",
   },
   {
     id: "civiclens",
@@ -72,7 +71,7 @@ const projects: ProjectItem[] = [
     gradient: "from-amber-500/25 via-rose-500/15 to-transparent",
     accentBorder: "hover:border-amber-500/60",
     metric: "Real-time Risk Scoring",
-    visualType: "civic",
+    bannerImage: "/projects/civiclens-banner.jpg",
   },
   {
     id: "potato-disease-ai",
@@ -86,7 +85,7 @@ const projects: ProjectItem[] = [
     gradient: "from-emerald-500/25 via-teal-500/15 to-transparent",
     accentBorder: "hover:border-emerald-500/60",
     metric: "98.4% Classification Accuracy",
-    visualType: "ai",
+    bannerImage: "/projects/potato-disease-banner.jpg",
   }
 ];
 
@@ -124,128 +123,41 @@ export default function Projects() {
 
         {/* Project Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <div
               key={project.id}
               className={`group relative rounded-3xl bg-white/80 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 ${project.accentBorder} backdrop-blur-xl shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between overflow-hidden`}
             >
-              {/* Top Graphic Showcase Header */}
-              <div className="relative h-44 sm:h-48 w-full bg-slate-100 dark:bg-[#0B0B12] overflow-hidden border-b border-slate-200 dark:border-white/10 flex items-center justify-center p-6">
-                
-                {/* Background Ambient Glow */}
+              {/* Top Graphic Showcase Banner Header */}
+              <div className="relative aspect-[16/7.5] sm:aspect-[16/7] w-full bg-slate-950 overflow-hidden border-b border-slate-200 dark:border-white/10 group/banner">
+                {/* Background Ambient Color Blend */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-tr ${project.gradient} opacity-40 group-hover:opacity-75 transition-opacity pointer-events-none`}
+                  className={`absolute inset-0 bg-gradient-to-tr ${project.gradient} opacity-40 group-hover:opacity-70 transition-opacity pointer-events-none z-10 mix-blend-overlay`}
                 />
 
-                {/* Circuit Grid Lines */}
-                <div
-                  className="absolute inset-0 opacity-20 pointer-events-none"
-                  style={{
-                    backgroundImage:
-                      "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.2) 1px, transparent 0)",
-                    backgroundSize: "20px 20px",
-                  }}
+                {/* Authentic Project Graphic Banner */}
+                <Image
+                  src={project.bannerImage}
+                  alt={`${project.title} Banner`}
+                  fill
+                  priority={index < 2}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 550px"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
 
-                {/* Simulated Visual Preview depending on VisualType */}
-                {project.visualType === "cloudwatch" && (
-                  <div className="relative z-10 w-full max-w-xs p-3 rounded-xl bg-white/90 dark:bg-black/60 border border-slate-300 dark:border-white/15 backdrop-blur-md shadow-lg font-mono">
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 mb-2">
-                      <span className="flex items-center gap-1.5 text-emerald-500 font-bold">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                        CloudWatch Monitoring
-                      </span>
-                      <span>us-east-1</span>
-                    </div>
-                    <div className="space-y-1.5 text-[10px]">
-                      <div className="flex justify-between items-center bg-slate-100 dark:bg-white/[0.05] px-2 py-1 rounded">
-                        <span className="text-slate-600 dark:text-slate-300">EC2 CPU Utilization</span>
-                        <span className="text-emerald-500 font-bold">18.4% (Normal)</span>
-                      </div>
-                      <div className="flex justify-between items-center bg-slate-100 dark:bg-white/[0.05] px-2 py-1 rounded">
-                        <span className="text-slate-600 dark:text-slate-300">Terraform State</span>
-                        <span className="text-[#803CFF] font-bold">Synchronized</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {project.visualType === "vpc" && (
-                  <div className="relative z-10 w-full max-w-xs p-3 rounded-xl bg-white/90 dark:bg-black/60 border border-slate-300 dark:border-white/15 backdrop-blur-md shadow-lg font-mono">
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 mb-2">
-                      <span className="flex items-center gap-1.5 text-sky-400 font-bold">
-                        <Cloud size={14} />
-                        Custom VPC Topology
-                      </span>
-                      <span>10.0.0.0/16</span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 text-[10px]">
-                      <div className="p-1.5 rounded bg-sky-500/10 border border-sky-500/20 text-center">
-                        <span className="block text-sky-400 font-bold">Public Subnet</span>
-                        <span className="text-slate-500 text-[9px]">EC2 + Nginx</span>
-                      </div>
-                      <div className="p-1.5 rounded bg-[#803CFF]/10 border border-[#803CFF]/20 text-center">
-                        <span className="block text-[#C084FC] font-bold">Private Subnet</span>
-                        <span className="text-slate-500 text-[9px]">RDS MySQL</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {project.visualType === "ai" && (
-                  <div className="relative z-10 w-full max-w-xs p-3 rounded-xl bg-white/90 dark:bg-black/60 border border-slate-300 dark:border-white/15 backdrop-blur-md shadow-lg font-mono">
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 mb-2">
-                      <span className="flex items-center gap-1.5 text-emerald-400 font-bold">
-                        <Cpu size={14} />
-                        Deep Learning Classifier
-                      </span>
-                      <span>CNN Model</span>
-                    </div>
-                    <div className="space-y-1.5 text-[10px]">
-                      <div className="flex justify-between items-center bg-emerald-500/10 px-2 py-1 rounded border border-emerald-500/20">
-                        <span className="text-slate-600 dark:text-slate-300">Diagnosis Confidence</span>
-                        <span className="text-emerald-400 font-bold">98.4% Precision</span>
-                      </div>
-                      <div className="flex justify-between items-center bg-slate-100 dark:bg-white/[0.05] px-2 py-1 rounded">
-                        <span className="text-slate-600 dark:text-slate-300">Container Runtime</span>
-                        <span className="text-sky-400 font-bold">Docker • FastAPI</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {project.visualType === "civic" && (
-                  <div className="relative z-10 w-full max-w-xs p-3 rounded-xl bg-white/90 dark:bg-black/60 border border-slate-300 dark:border-white/15 backdrop-blur-md shadow-lg font-mono">
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 mb-2">
-                      <span className="flex items-center gap-1.5 text-amber-400 font-bold">
-                        <Terminal size={14} />
-                        Risk Intelligence
-                      </span>
-                      <span>AI Model</span>
-                    </div>
-                    <div className="space-y-1.5 text-[10px]">
-                      <div className="flex justify-between items-center bg-amber-500/10 px-2 py-1 rounded border border-amber-500/20">
-                        <span className="text-slate-600 dark:text-slate-300">Delay Anomaly Score</span>
-                        <span className="text-amber-400 font-bold">Low Variance</span>
-                      </div>
-                      <div className="flex justify-between items-center bg-slate-100 dark:bg-white/[0.05] px-2 py-1 rounded">
-                        <span className="text-slate-600 dark:text-slate-300">Host Environment</span>
-                        <span className="text-slate-300 font-bold">AWS EC2 • Nginx</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                {/* Vignette Gradient for Readable Badges and Polished Contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/35 pointer-events-none z-10" />
 
                 {/* Top Badge */}
-                <div className="absolute top-3 left-3">
-                  <span className={`text-[10px] font-mono font-semibold uppercase px-2.5 py-1 rounded-full border backdrop-blur-md ${project.badgeColor}`}>
+                <div className="absolute top-3 left-3 z-20">
+                  <span className={`text-[10px] font-mono font-bold uppercase px-2.5 py-1 rounded-full border shadow-md backdrop-blur-md ${project.badgeColor}`}>
                     {project.badge}
                   </span>
                 </div>
 
                 {/* Metric Pill */}
-                <div className="absolute bottom-3 right-3">
-                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-black/70 text-slate-200 border border-white/10 backdrop-blur-md">
+                <div className="absolute bottom-3 right-3 z-20">
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-black/80 text-slate-100 border border-white/15 shadow-md backdrop-blur-md">
                     {project.metric}
                   </span>
                 </div>
@@ -257,6 +169,11 @@ export default function Projects() {
                   <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight mb-1 group-hover:text-[#6D28D9] dark:group-hover:text-[#C084FC] transition-colors">
                     {project.title}
                   </h3>
+                  {project.tagline && (
+                    <p className="text-xs italic text-slate-600 dark:text-slate-300 mb-2 font-serif">
+                      &ldquo;{project.tagline}&rdquo;
+                    </p>
+                  )}
                   <p className="text-xs font-mono text-[#6D28D9] dark:text-[#803CFF] mb-3 font-semibold">
                     {project.subtitle}
                   </p>

@@ -46,7 +46,7 @@ export default function HomePage() {
 
       {/* ========================================================
           4. PROJECTS
-          (AWS Monitoring & Alerting, Scalable Blog on AWS,
+          (Firefly — AWS Monitoring & Alerting, Paperboat — Scalable Blog on AWS,
            AI Potato Plant Disease Detection, CivicLens)
          ======================================================== */}
       <Projects />

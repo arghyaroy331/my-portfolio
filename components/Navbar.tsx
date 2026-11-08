@@ -21,6 +21,30 @@ export default function Navbar() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("hero");
+  const [introDone, setIntroDone] = useState(false);
+
+  // Synchronize navbar reveal with cinematic opening experience
+  useEffect(() => {
+    if (pathname !== "/") {
+      setIntroDone(true);
+      return;
+    }
+
+    const handleIntroComplete = () => {
+      setIntroDone(true);
+    };
+
+    window.addEventListener("intro-complete", handleIntroComplete);
+    // Fallback timer: ensure navbar reveals cleanly even if intro event missed
+    const timer = setTimeout(() => {
+      setIntroDone(true);
+    }, 3200);
+
+    return () => {
+      window.removeEventListener("intro-complete", handleIntroComplete);
+      clearTimeout(timer);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     // Detect initial theme (default to dark)
@@ -140,7 +164,13 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 right-0 left-0 z-50 flex justify-center px-4 sm:px-6 py-4">
+    <nav
+      className={`fixed top-0 right-0 left-0 z-50 flex justify-center px-4 sm:px-6 py-4 transition-all duration-700 ease-out ${
+        introDone
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 -translate-y-10 pointer-events-none"
+      }`}
+    >
       <div className="glass-navbar w-full max-w-[56rem]">
         <div
           className="flex items-center justify-between px-3 py-2"

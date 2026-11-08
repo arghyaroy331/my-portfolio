@@ -75,6 +75,9 @@ export default function CinematicHero() {
   const [currentSubtitle, setCurrentSubtitle] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [isColorActive, setIsColorActive] = useState(false);
+
+  const toggleColor = () => setIsColorActive((prev) => !prev);
 
   // Cycling animated subtitle every 2.6 seconds
   useEffect(() => {
@@ -291,25 +294,45 @@ export default function CinematicHero() {
           transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           className="lg:col-span-5 flex items-center justify-center relative"
         >
-          {/* Main Visual Frame Container */}
-          <div className="relative w-full max-w-[360px] sm:max-w-[400px] aspect-[4/5] flex items-center justify-center">
-            
-            {/* Ambient Lighting Ring behind Portrait */}
+          {/* Main Visual Frame Container with Interactive Color Transition */}
+          <div
+            onClick={toggleColor}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                toggleColor();
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Arghya Roy portrait - Click or tap to toggle natural color"
+            aria-pressed={isColorActive}
+            className="group relative w-full max-w-[360px] sm:max-w-[400px] aspect-[4/5] flex items-center justify-center cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-[#803CFF] focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 rounded-2xl active:scale-[0.98] transition-transform duration-200"
+          >
+            {/* Ambient Lighting Ring behind Portrait (Subtle purple-blue glow that blooms on hover/click) */}
             <div
-              className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-[#803CFF]/30 via-[#6366F1]/20 to-[#38BDF8]/25 blur-2xl opacity-70 animate-pulse pointer-events-none"
-              style={{ animationDuration: "5s" }}
+              className={`absolute -inset-4 rounded-3xl bg-gradient-to-tr from-[#803CFF]/40 via-[#6366F1]/25 to-[#38BDF8]/35 blur-2xl transition-all duration-700 pointer-events-none motion-reduce:transition-none ${
+                isColorActive
+                  ? "opacity-100 scale-105"
+                  : "opacity-60 group-hover:opacity-100 group-hover:scale-105"
+              }`}
               aria-hidden="true"
             />
 
             {/* Premium Glass-Effect Outer Frame */}
-            <div className="relative w-full h-full rounded-2xl p-2.5 bg-white/80 dark:bg-white/[0.03] border border-slate-300 dark:border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-2xl overflow-hidden group">
-              
+            <div
+              className={`relative w-full h-full rounded-2xl p-2.5 bg-white/80 dark:bg-white/[0.03] border transition-all duration-700 ease-in-out shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-2xl overflow-hidden ${
+                isColorActive
+                  ? "border-[#803CFF]/60 shadow-[0_0_35px_rgba(128,60,255,0.35)]"
+                  : "border-slate-300 dark:border-white/15 group-hover:border-[#803CFF]/50 group-hover:shadow-[0_0_30px_rgba(99,102,241,0.25)]"
+              }`}
+            >
               {/* Inner Specular Highlight / Dual Border */}
               <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 flex items-center justify-center">
                 
                 {/* Image Placeholder & Graceful Loading State */}
                 {!imageLoaded && !imageError && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-slate-100 via-slate-200 to-slate-100 dark:from-slate-900 dark:via-[#13131c] dark:to-black z-10 animate-pulse">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-slate-100 via-slate-200 to-slate-100 dark:from-slate-900 dark:via-[#13131c] dark:to-black z-20 animate-pulse">
                     {/* Abstract Cloud Engineering Monogram Placeholder */}
                     <div className="w-20 h-20 rounded-2xl bg-white/80 dark:bg-white/[0.04] border border-[#803CFF]/30 flex items-center justify-center text-[#803CFF] shadow-[0_0_20px_rgba(128,60,255,0.2)] mb-3">
                       <Cloud size={38} className="text-[#803CFF] dark:text-[#A855F7]" />
@@ -325,7 +348,7 @@ export default function CinematicHero() {
 
                 {/* Graceful Fallback if image path is unavailable */}
                 {imageError && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-slate-50 to-slate-200 dark:from-[#161622] dark:via-[#0E0E17] dark:to-black p-6 text-center z-10">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-slate-50 to-slate-200 dark:from-[#161622] dark:via-[#0E0E17] dark:to-black p-6 text-center z-20">
                     <div className="w-24 h-24 rounded-2xl bg-[#803CFF]/10 border border-[#803CFF]/30 flex items-center justify-center text-[#803CFF] shadow-lg mb-4">
                       <span className="text-3xl font-black font-mono tracking-tight text-slate-900 dark:text-white">AR</span>
                     </div>
@@ -337,18 +360,32 @@ export default function CinematicHero() {
                   </div>
                 )}
 
-                {/* Actual Professional Portrait (Smooth Fade-In & Subtle Scale) */}
+                {/* Layer 1: Black & White Base Portrait (Default Appearance) */}
                 <Image
-                  src="/profile.jpg"
-                  alt="Arghya Roy - Cloud Engineer"
+                  src="/profile-bw.jpg"
+                  alt="Arghya Roy - Cloud Engineer (Monochrome)"
                   fill
                   priority
                   sizes="(max-width: 768px) 100vw, 400px"
                   onLoad={() => setImageLoaded(true)}
                   onError={() => setImageError(true)}
-                  className={`object-cover object-top transition-all duration-700 ${
-                    imageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
-                  } group-hover:scale-[1.02] duration-500`}
+                  className={`object-cover object-top transition-transform duration-700 ease-out motion-reduce:transform-none ${
+                    isColorActive ? "scale-[1.03]" : "scale-100 group-hover:scale-[1.03]"
+                  } ${imageLoaded ? "opacity-100" : "opacity-0"}`}
+                />
+
+                {/* Layer 2: Authentic Original Natural Color Portrait (Smooth Cross-fade on Hover / Click) */}
+                <Image
+                  src="/profile-color.jpg"
+                  alt="Arghya Roy - Cloud Engineer (Natural Color)"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  className={`object-cover object-top transition-all duration-700 ease-in-out motion-reduce:transform-none ${
+                    isColorActive
+                      ? "opacity-100 scale-[1.03]"
+                      : "opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-[1.03]"
+                  }`}
                 />
               </div>
             </div>

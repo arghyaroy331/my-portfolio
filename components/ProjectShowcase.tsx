@@ -77,7 +77,7 @@ resource "aws_sns_topic" "devops_alerts" {
             Infrastructure <span className="text-[#803CFF] dark:text-[#C084FC]">Deep-Dive</span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base mt-2">
-            Interactive breakdown of the AWS Monitoring &amp; Alerting architecture and declarative Terraform automation.
+            Interactive breakdown of Firefly (AWS Monitoring &amp; Alerting) architecture and declarative Terraform automation.
           </p>
         </div>
 
@@ -96,7 +96,7 @@ resource "aws_sns_topic" "devops_alerts" {
               <span className="h-4 w-px bg-slate-300 dark:bg-white/15" />
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-slate-800 dark:text-slate-200">
                 <AwsIcon size={14} className="text-[#FF9900]" />
-                <span>AWS Monitoring &amp; Alerting System</span>
+                <span>Firefly — AWS Monitoring &amp; Alerting System</span>
               </div>
             </div>
 
@@ -156,11 +156,11 @@ resource "aws_sns_topic" "devops_alerts" {
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                     <span className="font-bold text-white text-[11px] sm:text-xs">
-                      AWS_Monitoring_Alerting_Explainer.mp4
+                      Firefly • AWS_Monitoring_Alerting_Explainer.mp4
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#803CFF]/20 text-[#C084FC] border border-[#803CFF]/30 hidden sm:inline-block">
-                    Live System Architecture &amp; Incident Demo
+                  <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#803CFF]/20 text-[#C084FC] border border-[#803CFF]/30 hidden sm:inline-block">
+                    &ldquo;Always watching. Always illuminating.&rdquo;
                   </span>
                 </div>
 

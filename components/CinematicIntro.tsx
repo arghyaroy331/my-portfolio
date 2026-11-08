@@ -14,15 +14,27 @@ export default function CinematicIntro({ onComplete }: CinematicIntroProps) {
   // Phase 3: Subtle zoom-in & cinematic fade transition into hero (2900ms - 3500ms)
   const [phase, setPhase] = useState<number>(0);
 
+  const finish = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("intro-complete"));
+    }
+    onComplete();
+  };
+
   useEffect(() => {
     const t1 = setTimeout(() => setPhase(1), 400);
     const t2 = setTimeout(() => setPhase(2), 2100);
-    const t3 = setTimeout(() => setPhase(3), 2900);
-    const t4 = setTimeout(() => onComplete(), 3600);
+    const t3 = setTimeout(() => {
+      setPhase(3);
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("intro-complete"));
+      }
+    }, 2900);
+    const t4 = setTimeout(() => finish(), 3600);
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" || e.key === " ") {
-        onComplete();
+        finish();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -48,7 +60,7 @@ export default function CinematicIntro({ onComplete }: CinematicIntroProps) {
             filter: phase === 3 ? "blur(8px)" : "blur(0px)",
           }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          onClick={onComplete}
+          onClick={finish}
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#070709] overflow-hidden select-none cursor-pointer"
         >
           {/* Slow traveling blue-purple luminous ambient light */}
