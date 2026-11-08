@@ -1,5 +1,6 @@
 "use client";
 
+import Education from "./Education";
 import {
   GraduationCap,
   Cpu,
@@ -104,10 +105,10 @@ export default function AboutSection() {
         </div>
 
         {/* 2 Main Story Cards: Career Vision & Academic Foundation */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
-          {/* Career Vision & Cloud Philosophy (7 cols) */}
-          <div className="lg:col-span-7 rounded-3xl p-6 sm:p-8 bg-white/80 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 hover:border-[#803CFF]/40 backdrop-blur-xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          {/* Career Vision & Cloud Philosophy (5 cols) */}
+          <div className="lg:col-span-5 rounded-3xl p-6 sm:p-8 bg-white/80 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 hover:border-[#803CFF]/40 backdrop-blur-xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-xl bg-[#803CFF]/15 border border-[#803CFF]/30 flex items-center justify-center text-[#803CFF]">
@@ -148,57 +149,9 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* Academic Foundation (5 cols) */}
-          <div className="lg:col-span-5 rounded-3xl p-6 sm:p-8 bg-white/80 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 hover:border-sky-500/40 backdrop-blur-xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400">
-                  <GraduationCap size={22} />
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
-                  Academic Foundation
-                </h3>
-              </div>
-
-              <div className="mb-4">
-                <h4 className="text-base font-bold text-slate-900 dark:text-white">
-                  Bachelor of Technology in Information Technology
-                </h4>
-                <p className="text-xs font-mono text-[#6D28D9] dark:text-[#C084FC] mt-0.5 font-semibold">
-                  JIS College of Engineering (Kalyani, WB)
-                </p>
-                <span className="inline-block mt-1.5 text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/[0.06] text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-white/10">
-                  2023 — 2027 • Undergraduate
-                </span>
-              </div>
-
-              <div className="pt-3 border-t border-slate-200/80 dark:border-white/[0.08]">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold block mb-2">
-                  Core Technical Coursework
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {[
-                    "Data Structures & Algorithms",
-                    "Operating Systems",
-                    "Computer Networks",
-                    "Database Management (SQL)",
-                    "OOP with Java",
-                    "Software Engineering",
-                  ].map((subject) => (
-                    <span
-                      key={subject}
-                      className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10"
-                    >
-                      {subject}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-slate-200/80 dark:border-white/[0.08] text-[11px] font-mono text-slate-500 dark:text-slate-400">
-              Department of Information Technology
-            </div>
+          {/* Academic Foundation Interactive Education Section (7 cols) */}
+          <div className="lg:col-span-7">
+            <Education />
           </div>
 
         </div>

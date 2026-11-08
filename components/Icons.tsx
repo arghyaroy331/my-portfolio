@@ -385,6 +385,47 @@ export function CheckCircle({ className = "w-5 h-5", size = 20, ...props }: Icon
   );
 }
 
+export function ChevronDown({ className = "w-4 h-4", size = 18, ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      {...props}
+    >
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  );
+}
+
+export function CertificateIcon({ className = "w-4 h-4", size = 18, ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      {...props}
+    >
+      <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+      <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+      <path d="M10 13a2 2 0 1 0 4 0 2 2 0 0 0-4 0" />
+      <path d="m14 17-2-1-2 1v-3.5h4z" />
+    </svg>
+  );
+}
+
 export function MapPin({ className = "w-5 h-5", size = 20, ...props }: IconProps) {
   return (
     <svg
