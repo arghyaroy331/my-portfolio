@@ -314,9 +314,9 @@ export default function Education({ entries = defaultEducationData }: EducationP
           </div>
         </div>
 
-        <span className="text-[10px] font-mono px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 border border-white/10 font-semibold hidden sm:inline-block">
+        {/* <span className="text-[10px] font-mono px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 border border-white/10 font-semibold hidden sm:inline-block">
           Interactive Timeline
-        </span>
+        </span> */}
       </div>
 
       {/* 3 Chronological Interactive Education Cards */}

@@ -813,6 +813,27 @@ export function SqlIcon({ className = "w-4 h-4", size = 16, ...props }: IconProp
   );
 }
 
+export function FlaskIcon({ className = "w-4 h-4", size = 16, ...props }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      {...props}
+    >
+      <path d="M10 2v7.31L4.54 18.2A2 2 0 0 0 6.26 21h11.48a2 2 0 0 0 1.72-2.8L14 9.31V2" />
+      <line x1="8.5" x2="15.5" y1="2" y2="2" />
+      <path d="M7 16h10" />
+    </svg>
+  );
+}
+
 export function Play({ className = "w-4 h-4", size = 16, ...props }: IconProps) {
   return (
     <svg

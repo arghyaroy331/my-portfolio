@@ -8,10 +8,12 @@ import {
   KubernetesIcon,
   LinuxIcon,
   Github,
+  GitIcon,
   CicdIcon,
   JavaIcon,
   PythonIcon,
   SqlIcon,
+  FlaskIcon,
   Cloud,
   Terminal,
   Database,
@@ -19,6 +21,134 @@ import {
   Sparkles,
 } from "./Icons";
 
+interface MarqueeSkill {
+  name: string;
+  category: string;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  badgeStyle: string;
+  glowStyle: string;
+}
+
+// Row 1 Skills: Cloud, DevOps & Infrastructure (Moves Left to Right)
+const row1Skills: MarqueeSkill[] = [
+  {
+    name: "AWS",
+    category: "Cloud Platform",
+    icon: AwsIcon,
+    badgeStyle: "bg-amber-500/10 border-amber-500/30 text-[#FF9900]",
+    glowStyle: "hover:border-[#FF9900]/70 hover:shadow-[0_0_25px_rgba(255,153,0,0.3)]",
+  },
+  {
+    name: "Terraform",
+    category: "Infrastructure as Code",
+    icon: TerraformIcon,
+    badgeStyle: "bg-purple-500/10 border-purple-500/30 text-[#C084FC]",
+    glowStyle: "hover:border-[#803CFF]/70 hover:shadow-[0_0_25px_rgba(128,60,255,0.3)]",
+  },
+  {
+    name: "Docker",
+    category: "Containerization",
+    icon: DockerIcon,
+    badgeStyle: "bg-sky-500/10 border-sky-500/30 text-[#38BDF8]",
+    glowStyle: "hover:border-[#38BDF8]/70 hover:shadow-[0_0_25px_rgba(56,189,248,0.3)]",
+  },
+  {
+    name: "Kubernetes",
+    category: "Container Orchestration",
+    icon: KubernetesIcon,
+    badgeStyle: "bg-blue-500/10 border-blue-500/30 text-sky-400",
+    glowStyle: "hover:border-sky-400/70 hover:shadow-[0_0_25px_rgba(50,108,229,0.3)]",
+  },
+  {
+    name: "Linux",
+    category: "OS & Server Admin",
+    icon: LinuxIcon,
+    badgeStyle: "bg-amber-400/10 border-amber-400/30 text-amber-300",
+    glowStyle: "hover:border-amber-400/70 hover:shadow-[0_0_25px_rgba(251,191,36,0.3)]",
+  },
+  {
+    name: "CI/CD",
+    category: "Automated Pipelines",
+    icon: CicdIcon,
+    badgeStyle: "bg-emerald-500/10 border-emerald-500/30 text-emerald-400",
+    glowStyle: "hover:border-emerald-400/70 hover:shadow-[0_0_25px_rgba(16,185,129,0.3)]",
+  },
+];
+
+// Row 2 Skills: Languages, Databases, Version Control & APIs (Moves Right to Left)
+const row2Skills: MarqueeSkill[] = [
+  {
+    name: "Python",
+    category: "Automation & Scripting",
+    icon: PythonIcon,
+    badgeStyle: "bg-sky-500/10 border-sky-500/30 text-sky-400",
+    glowStyle: "hover:border-sky-400/70 hover:shadow-[0_0_25px_rgba(56,189,248,0.3)]",
+  },
+  {
+    name: "Java",
+    category: "OOP & Algorithmic DSA",
+    icon: JavaIcon,
+    badgeStyle: "bg-rose-500/10 border-rose-500/30 text-rose-300",
+    glowStyle: "hover:border-rose-400/70 hover:shadow-[0_0_25px_rgba(244,63,94,0.3)]",
+  },
+  {
+    name: "SQL",
+    category: "Relational Databases",
+    icon: SqlIcon,
+    badgeStyle: "bg-cyan-500/10 border-cyan-500/30 text-cyan-300",
+    glowStyle: "hover:border-cyan-400/70 hover:shadow-[0_0_25px_rgba(6,182,212,0.3)]",
+  },
+  {
+    name: "Git",
+    category: "Version Control",
+    icon: GitIcon,
+    badgeStyle: "bg-orange-500/10 border-orange-500/30 text-orange-400",
+    glowStyle: "hover:border-orange-400/70 hover:shadow-[0_0_25px_rgba(249,115,22,0.3)]",
+  },
+  {
+    name: "GitHub",
+    category: "Workflows & Collaboration",
+    icon: Github,
+    badgeStyle: "bg-slate-200/10 border-slate-300/20 text-slate-200",
+    glowStyle: "hover:border-slate-300/60 hover:shadow-[0_0_25px_rgba(255,255,255,0.2)]",
+  },
+  {
+    name: "Flask",
+    category: "Web APIs & Microservices",
+    icon: FlaskIcon,
+    badgeStyle: "bg-teal-500/10 border-teal-500/30 text-teal-300",
+    glowStyle: "hover:border-teal-400/70 hover:shadow-[0_0_25px_rgba(20,184,166,0.3)]",
+  },
+];
+
+// Single Reusable Skill Card for Marquee
+function SkillMarqueeCard({ skill }: { skill: MarqueeSkill }) {
+  const Icon = skill.icon;
+  return (
+    <div
+      className={`group/card relative rounded-2xl px-5 py-3.5 sm:py-4 flex items-center gap-3.5 bg-white/80 dark:bg-[#161622]/80 border border-slate-200/80 dark:border-white/10 backdrop-blur-xl shadow-sm ${skill.glowStyle} hover:scale-105 hover:bg-white dark:hover:bg-[#1c1c2b] transition-all duration-300 ease-out cursor-pointer select-none shrink-0 min-w-[210px] sm:min-w-[240px]`}
+    >
+      {/* Icon Badge */}
+      <div
+        className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 border transition-transform duration-300 group-hover/card:scale-110 shadow-sm ${skill.badgeStyle}`}
+      >
+        <Icon size={22} />
+      </div>
+
+      {/* Skill Name & Subtitle */}
+      <div className="flex flex-col min-w-0">
+        <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white tracking-tight group-hover/card:text-[#6D28D9] dark:group-hover/card:text-[#C084FC] transition-colors">
+          {skill.name}
+        </span>
+        <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 truncate">
+          {skill.category}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+// 9 Core In-Depth Skills (for Detailed View)
 interface CoreSkill {
   name: string;
   category: string;
@@ -151,7 +281,11 @@ const coreSkills: CoreSkill[] = [
 ];
 
 export default function Skills() {
-  const [activeTab, setActiveTab] = useState<"featured" | "categories">("featured");
+  const [activeTab, setActiveTab] = useState<"marquee" | "grid" | "categories">("marquee");
+
+  // Create two identical halves for mathematically seamless 50% translation
+  const row1Half = [...row1Skills, ...row1Skills];
+  const row2Half = [...row2Skills, ...row2Skills];
 
   return (
     <section id="skills" className="w-full flex justify-center px-4 sm:px-6 mb-16 scroll-mt-24">
@@ -172,23 +306,33 @@ export default function Skills() {
             </p>
           </div>
 
-          {/* View Toggle */}
+          {/* View Mode Tabs */}
           <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-200/70 dark:bg-white/[0.05] border border-slate-300/70 dark:border-white/10 self-start sm:self-auto">
             <button
-              onClick={() => setActiveTab("featured")}
+              onClick={() => setActiveTab("marquee")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all ${
-                activeTab === "featured"
-                  ? "bg-[#803CFF] text-white shadow-md shadow-[#803CFF]/25"
+                activeTab === "marquee"
+                  ? "bg-[#803CFF] text-white shadow-md shadow-[#803CFF]/25 font-bold"
                   : "text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
-              Core Skills
+              Animated Marquee
+            </button>
+            <button
+              onClick={() => setActiveTab("grid")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all ${
+                activeTab === "grid"
+                  ? "bg-[#803CFF] text-white shadow-md shadow-[#803CFF]/25 font-bold"
+                  : "text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              }`}
+            >
+              Core Matrix
             </button>
             <button
               onClick={() => setActiveTab("categories")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all ${
                 activeTab === "categories"
-                  ? "bg-[#803CFF] text-white shadow-md shadow-[#803CFF]/25"
+                  ? "bg-[#803CFF] text-white shadow-md shadow-[#803CFF]/25 font-bold"
                   : "text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
@@ -198,11 +342,101 @@ export default function Skills() {
         </div>
 
         {/* ========================================================
-            TAB 1: THE 9 REQUIRED CORE SKILLS (MATCHING REFERENCE)
+            TAB 1: HORIZONTALLY MOVING INFINITE DUAL MARQUEE EFFECT
            ======================================================== */}
-        {activeTab === "featured" && (
+        {activeTab === "marquee" && (
+          <div className="relative w-full rounded-3xl p-6 sm:p-8 bg-slate-950/70 dark:bg-white/[0.02] border border-slate-800 dark:border-white/10 backdrop-blur-2xl shadow-2xl overflow-hidden group/marquee marquee-container">
+            
+            {/* Ambient Background Glow Behind Marquee */}
+            <div
+              className="absolute -top-20 left-1/4 w-80 h-80 rounded-full bg-gradient-to-tr from-[#803CFF]/15 via-sky-500/10 to-transparent blur-3xl pointer-events-none"
+              aria-hidden="true"
+            />
+            <div
+              className="absolute -bottom-20 right-1/4 w-80 h-80 rounded-full bg-gradient-to-bl from-sky-500/15 via-[#803CFF]/10 to-transparent blur-3xl pointer-events-none"
+              aria-hidden="true"
+            />
+
+            {/* Left Edge Vignette Mask for Seamless Fade */}
+            <div
+              className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent dark:from-[#13131c] dark:via-[#13131c]/80 dark:to-transparent z-10"
+              aria-hidden="true"
+            />
+
+            {/* Right Edge Vignette Mask for Seamless Fade */}
+            <div
+              className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-slate-950 via-slate-950/80 to-transparent dark:from-[#13131c] dark:via-[#13131c]/80 dark:to-transparent z-10"
+              aria-hidden="true"
+            />
+
+            <div className="relative z-0 space-y-4 sm:space-y-5">
+              
+              {/* ----------------------------------------------------
+                  ROW 1: MOVES CONTINUOUSLY LEFT TO RIGHT
+                 ---------------------------------------------------- */}
+              <div className="relative w-full overflow-hidden py-1">
+                <div className="animate-marquee-right flex items-center gap-4 sm:gap-5 group-hover/marquee:[animation-play-state:paused] hover:[animation-play-state:paused]">
+                  {/* Half 1 */}
+                  {row1Half.map((skill, index) => (
+                    <SkillMarqueeCard
+                      key={`row1-h1-${skill.name}-${index}`}
+                      skill={skill}
+                    />
+                  ))}
+                  {/* Half 2 (Exact duplicate for mathematically seamless 50% translation) */}
+                  {row1Half.map((skill, index) => (
+                    <SkillMarqueeCard
+                      key={`row1-h2-${skill.name}-${index}`}
+                      skill={skill}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* ----------------------------------------------------
+                  ROW 2: MOVES CONTINUOUSLY RIGHT TO LEFT
+                 ---------------------------------------------------- */}
+              <div className="relative w-full overflow-hidden py-1">
+                <div className="animate-marquee-left flex items-center gap-4 sm:gap-5 group-hover/marquee:[animation-play-state:paused] hover:[animation-play-state:paused]">
+                  {/* Half 1 */}
+                  {row2Half.map((skill, index) => (
+                    <SkillMarqueeCard
+                      key={`row2-h1-${skill.name}-${index}`}
+                      skill={skill}
+                    />
+                  ))}
+                  {/* Half 2 (Exact duplicate for mathematically seamless 50% translation) */}
+                  {row2Half.map((skill, index) => (
+                    <SkillMarqueeCard
+                      key={`row2-h2-${skill.name}-${index}`}
+                      skill={skill}
+                    />
+                  ))}
+                </div>
+              </div>
+
+            </div>
+
+            {/* Bottom Interactive Guidance Pill */}
+            {/* <div className="relative z-10 mt-6 pt-4 border-t border-slate-800/80 dark:border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-slate-400">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#803CFF] animate-pulse" />
+                <span>Infinite Interactive Stream • Row 1 (Left to Right) &amp; Row 2 (Right to Left)</span>
+              </div>
+              <span className="text-[11px] text-slate-500">
+                Hover over marquee to pause animation
+              </span>
+            </div> */}
+
+          </div>
+        )}
+
+        {/* ========================================================
+            TAB 2: CORE DETAILED 9 SKILLS GRID
+           ======================================================== */}
+        {activeTab === "grid" && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4.5">
-            {coreSkills.map((skill, index) => {
+            {coreSkills.map((skill) => {
               const Icon = skill.icon;
               return (
                 <div
@@ -254,7 +488,7 @@ export default function Skills() {
         )}
 
         {/* ========================================================
-            TAB 2: DETAILED ARCHITECTURAL CATEGORIES
+            TAB 3: DETAILED ARCHITECTURAL CATEGORIES
            ======================================================== */}
         {activeTab === "categories" && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4.5">
@@ -338,6 +572,7 @@ export default function Skills() {
                 {[
                   "Java (OOP & DSA)",
                   "Python",
+                  "Flask",
                   "Shell / Bash",
                   "YAML / JSON",
                   "Data Structures",

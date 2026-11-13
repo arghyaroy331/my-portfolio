@@ -764,3 +764,56 @@ body {
 .example-2 .icon-content a[data-social="mail"] ~ .tooltip {
   background-color: #803CFF;
 }
+
+/* ========================================================
+   SKILLS SECTION INFINITE HORIZONTAL MARQUEE ANIMATIONS
+   ======================================================== */
+
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 30s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-right 30s linear infinite;
+  will-change: transform;
+}
+
+/* Pause animation when user hovers over the marquee */
+.marquee-container:hover .animate-marquee-left,
+.marquee-container:hover .animate-marquee-right,
+.animate-marquee-left:hover,
+.animate-marquee-right:hover {
+  animation-play-state: paused;
+}
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-left,
+  .animate-marquee-right {
+    animation-play-state: paused !important;
+  }
+}
+
